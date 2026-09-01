@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0e11">
+  <meta name="description" content="Fuyan Zhang's academic homepage — efficient deep learning, model pruning, knowledge distillation, and 3D human motion generation.">
+  <link rel="canonical" href="https://eason-z-ovo.github.io/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <title>Fuyan Zhang | Academic Homepage</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #0b0e11;
+      --surface: #0f1419;
+      --border: #1f2937;
+      --border-strong: #374151;
+      --text: #d3dae2;
+      --text-soft: #aeb9c4;
+      --muted: #8b98a5;
+      --quiet: #4b5563;
+      --accent: #4ade80;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 76px;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--background);
+      color: var(--text);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    a {
+      color: var(--text);
+      text-underline-offset: 3px;
+      transition: color 150ms ease;
+    }
+
+    a:hover,
+    a:focus-visible {
+      color: var(--accent);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(11, 14, 17, 0.92);
+      backdrop-filter: blur(6px);
+      font-size: 13px;
+    }
+
+    .terminal-home,
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .terminal-home {
+      flex: 0 0 auto;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 26px;
+    }
+
+    .nav-links a:not(.cv-link) {
+      color: var(--muted);
+    }
+
+    .nav-links a:not(.cv-link):hover,
+    .nav-links a:not(.cv-link):focus-visible {
+      color: var(--accent);
+    }
+
+    .cv-link {
+      padding: 6px 14px;
+      background: var(--accent);
+      color: var(--background);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .cv-link:hover,
+    .cv-link:focus-visible {
+      color: var(--background);
+      background: #86efac;
+    }
+
+    .shell {
+      width: min(100%, 1140px);
+      margin: 0 auto;
+      padding-inline: 40px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 56px;
+      align-items: start;
+      padding-block: 88px 72px;
+    }
+
+    .command {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 9px;
+      height: 17px;
+      margin-left: 8px;
+      vertical-align: text-bottom;
+      background: var(--accent);
+      animation: blink 1.1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .cursor { animation: none; }
+    }
+
+    h1 {
+      margin: 0 0 26px;
+      font-size: clamp(48px, 7vw, 68px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .intro {
+      max-width: 620px;
+      margin: 0 0 28px;
+      color: var(--text-soft);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 19px;
+      line-height: 1.65;
+    }
+
+    .intro strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .facts {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .fact {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .fact-label {
+      color: var(--accent);
+    }
+
+    .fact a {
+      color: var(--muted);
+    }
+
+    .fact a:hover,
+    .fact a:focus-visible {
+      color: var(--accent);
+    }
+
+    .separator {
+      margin-inline: 8px;
+      color: var(--border-strong);
+    }
+
+    .unavailable-link {
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      cursor: help;
+    }
+
+    .portrait-frame {
+      padding: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .portrait-placeholder {
+      display: grid;
+      width: 202px;
+      height: 240px;
+      place-items: center;
+      border: 1px dashed var(--border-strong);
+      color: var(--quiet);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .portrait-caption {
+      margin-top: 10px;
+      color: var(--quiet);
+      font-size: 11px;
+    }
+
+    .section {
+      padding-block: 56px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-command {
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    .comment {
+      color: var(--quiet);
+    }
+
+    .publication-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .publication {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: start;
+      padding: 22px 26px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: border-color 150ms ease;
+    }
+
+    .publication:hover {
+      border-color: var(--border-strong);
+    }
+
+    .publication-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .venue {
+      padding: 3px 8px;
+      border: 1px solid var(--border-strong);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .venue.spotlight {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--background);
+      font-weight: 600;
+    }
+
+    .first-author {
+      color: var(--accent);
+      font-size: 11px;
+    }
+
+    .publication h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .authors {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .authors strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .copy-button {
+      padding: 5px 10px;
+      border: 1px solid var(--border-strong);
+      border-radius: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 11px;
+      line-height: inherit;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: border-color 150ms ease, color 150ms ease;
+    }
+
+    .copy-button:hover,
+    .copy-button:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .timeline {
+      display: grid;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: baseline;
+      padding: 22px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .timeline-row.experience-row {
+      grid-template-columns: 200px minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .date {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .timeline-title {
+      margin-bottom: 6px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .timeline-detail {
+      color: var(--text-soft);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .result {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .result.highlight {
+      color: var(--accent);
+    }
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding-block: 28px;
+      border-top: 1px solid var(--border);
+      color: var(--quiet);
+      font-size: 12px;
+    }
+
+    @media (max-width: 800px) {
+      .site-nav {
+        align-items: flex-start;
+        padding: 15px 20px;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      .nav-links a:not(.cv-link) {
+        display: none;
+      }
+
+      .shell {
+        padding-inline: 22px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 38px;
+        padding-block: 64px 52px;
+      }
+
+      .portrait {
+        width: 220px;
+      }
+
+      .timeline-row,
+      .timeline-row.experience-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .result {
+        text-align: left;
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .terminal-home {
+        max-width: 170px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+
+      .intro {
+        font-size: 17px;
+      }
+
+      .fact {
+        grid-template-columns: 38px minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .publication {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px;
+      }
+
+      .copy-button {
+        justify-self: start;
+      }
+
+      .section {
+        padding-block: 46px;
+      }
+
+      .site-footer {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="terminal-home" href="#top">fuyan@edinburgh:~$</a>
+    <div class="nav-links">
+      <a href="#publications">./publications</a>
+      <a href="#education">./education</a>
+      <a href="#experience">./experience</a>
+      <a class="cv-link" href="uploads/Fuyan_Zhang_CV.pdf" target="_blank" rel="noopener">cv.pdf ↓</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="shell hero" id="top">
+      <div>
+        <p class="command">$ whoami<span class="cursor" aria-hidden="true"></span></p>
+        <h1>Fuyan Zhang</h1>
+        <p class="intro">Efficient deep learning: pruning, knowledge distillation, input-adaptive computation. <strong>Now heading toward 3D human motion generation</strong> — generative motion models fast enough to run anywhere.</p>
+        <div class="facts">
+          <div class="fact"><span class="fact-label">edu:</span><span>MSc High Performance Computing with Data Science, University of Edinburgh</span></div>
+          <div class="fact"><span class="fact-label">seek:</span><span>PhD position · 2027 entry · efficient generative models / 3D human motion</span></div>
+          <div class="fact"><span class="fact-label">mail:</span><a href="mailto:F.Zhang-42@sms.ed.ac.uk">F.Zhang-42@sms.ed.ac.uk</a></div>
+          <div class="fact">
+            <span class="fact-label">link:</span>
+            <span><span class="unavailable-link" title="Google Scholar profile URL not provided">Google Scholar</span><span class="separator">·</span><a href="https://github.com/eason-z-ovo" target="_blank" rel="noopener">GitHub</a><span class="separator">·</span>Edinburgh, Scotland</span>
+          </div>
+        </div>
+      </div>
+      <aside class="portrait" aria-label="Portrait placeholder">
+        <div class="portrait-frame">
+          <div class="portrait-placeholder">[ portrait.jpg ]</div>
+        </div>
+        <div class="portrait-caption">$ display portrait.jpg</div>
+      </aside>
+    </header>
+
+    <section class="shell section" id="publications" aria-labelledby="publications-title">
+      <h2 class="section-command" id="publications-title">$ ls publications/ <span class="comment"># 7 papers · 1 first-author spotlight</span></h2>
+      <div class="publication-list">
+        <article class="publication">
+          <div>
+            <div class="publication-meta"><span class="venue spotlight">ICME 2026 · SPOTLIGHT</span><span class="first-author">★ first author</span></div>
+            <h3>Dyna-Pruner: Input-Adaptive Data–Model Co-Pruning for Efficient and Scalable Spatio-Temporal Media Prediction</h3>
+            <div class="authors"><strong>F. Zhang</strong>, Y. Li, Q. Xu, C. Yang, Z. Dong, Y. Tian, E.S.L. Ho</div>
+          </div>
+          <button class="copy-button" type="button" data-bib="dyna" aria-label="Copy Dyna-Pruner BibTeX citation">[bibtex]</button>
+        </article>
+
+        <article class="publication">
+          <div>
+            <div class="publication-meta"><span class="venue">INFORMATION SCIENCES · JCR-Q1</span></div>
+            <h3>Achieving Fair Medical Image Segmentation in Foundation Models with Adversarial Visual Prompt Tuning</h3>
+            <div class="authors">Y. Li, Y. Li, K. Zhang, <strong>F. Zhang</strong>, C. Yang, Z. Guo, W. Ding, T. Huang</div>
+          </div>
+          <button class="copy-button" type="button" data-bib="advvpt" aria-label="Copy AdvVPT BibTeX citation">[bibtex]</button>
+        </article>
+
+        <article class="publication">
+          <div>
+            <div class="publication-meta"><span class="venue">IEEE TETCI · JCR-Q1</span></div>
+            <h3>Efficient Medical Image Segmentation via Reinforcement Learning-Driven K-Space Sampling</h3>
+            <div class="authors">Y. Li, H. Zeng, <strong>F. Zhang</strong>, C. Yang, Y. Li, W. Ding</div>
+          </div>
+          <button class="copy-button" type="button" data-bib="kspace" aria-label="Copy K-Space Sampling BibTeX citation">[bibtex]</button>
+        </article>
+
+        <article class="publication">
+          <div>
+            <div class="publication-meta"><span class="venue">CVIU · JCR-Q1</span></div>
+            <h3>Towards Robust Medical Image Segmentation: Spectro-Spatial Domain Generalization with MRAM and DMIR</h3>
+            <div class="authors">Y. Li, J. Dong, H. Zeng, <strong>F. Zhang</strong>, Z. Dong, C. Yang, Y. Tian</div>
+          </div>
+          <button class="copy-button" type="button" data-bib="cviu" aria-label="Copy MRAM and DMIR BibTeX citation">[bibtex]</button>
+        </article>
+
+        <article class="publication">
+          <div>
+            <div class="publication-meta"><span class="venue">COGNITIVE COMPUTATION · JCR-Q1</span></div>
+            <h3>PDD: Pruning Neural Networks During Knowledge Distillation</h3>
+            <div class="authors">D. Xi, W. Yang, <strong>F. Zhang</strong>, Y. Zhou, Z. Yu, Z. Qiu, B. Zhao, Z. Dong, L. Huang, C. Yang</div>
+          </div>
+          <button class="copy-button" type="button" data-bib="pdd" aria-label="Copy PDD BibTeX citation">[bibtex]</button>
+        </article>
+
+        <article class="publication">
+          <div>
+            <div class="publication-meta"><span class="venue">ICONIP 2024 · CCF-C / CORE-A</span></div>
+            <h3>CPG: Channel Pruning for Effective Medical Image Segmentation Using DFS-Guided Grouping</h3>
+            <div class="authors">X. Yan, <strong>F. Zhang</strong>, Y. Li, Z. Qiu, B. Zhao, J. Li, H. Zeng, Y. Chen, C. Yang</div>
+          </div>
+          <button class="copy-button" type="button" data-bib="cpg" aria-label="Copy CPG BibTeX citation">[bibtex]</button>
+        </article>
+
+        <article class="publication">
+          <div>
+            <div class="publication-meta"><span class="venue">KSEM 2024 · CCF-C / CORE-B</span></div>
+            <h3>Automatic Meter Pointer Reading Based on Knowledge Distillation</h3>
+            <div class="authors">S. Rong, W. Yang, <strong>F. Zhang</strong>, Y. Xiang, H. Wang, Y. Jiang</div>
+          </div>
+          <button class="copy-button" type="button" data-bib="meter" aria-label="Copy meter-reading BibTeX citation">[bibtex]</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell section" id="education" aria-labelledby="education-title">
+      <h2 class="section-command" id="education-title">$ cat education.log</h2>
+      <div class="timeline">
+        <article class="timeline-row">
+          <div class="date">2025.09 — 2026.09</div>
+          <div>
+            <div class="timeline-title">University of Edinburgh</div>
+            <div class="timeline-detail">MSc in High Performance Computing with Data Science</div>
+          </div>
+          <div class="result highlight">72% · expected distinction</div>
+        </article>
+        <article class="timeline-row">
+          <div class="date">2022.09 — 2025.06</div>
+          <div>
+            <div class="timeline-title">University of Glasgow</div>
+            <div class="timeline-detail">BSc (Honours) in Computing Science</div>
+          </div>
+          <div class="result">upper second class (2:1)</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell section" id="experience" aria-labelledby="experience-title">
+      <h2 class="section-command" id="experience-title">$ cat experience.log</h2>
+      <div class="timeline">
+        <article class="timeline-row experience-row">
+          <div class="date">2025.07 — 2025.09</div>
+          <div>
+            <div class="timeline-title">Research Intern · University of Glasgow</div>
+            <div class="timeline-detail">School of Computing Science · Supervisor: Dr. Edmond S.L. Ho — dynamic data–model co-pruning for spatio-temporal prediction (→ Dyna-Pruner, ICME 2026 Spotlight)</div>
+          </div>
+        </article>
+        <article class="timeline-row experience-row">
+          <div class="date">2024.06 — 2024.08</div>
+          <div>
+            <div class="timeline-title">Research Assistant · Institute of Computing Technology, CAS</div>
+            <div class="timeline-detail">Beijing · Supervisor: Dr. Chuanguang Yang — model pruning and knowledge distillation across medical segmentation and detection (→ 4 co-authored papers)</div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell site-footer">
+    <span>© 2026 Fuyan Zhang · built with a terminal aesthetic</span>
+    <span>$ exit</span>
+  </footer>
+
+  <script>
+    const citations = {
+      dyna: `@inproceedings{zhang2026dynapruner,
+  title={Dyna-Pruner: Input-Adaptive Data--Model Co-Pruning for Efficient and Scalable Spatio-Temporal Media Prediction},
+  author={Zhang, Fuyan and Li, Yuqi and Xu, Qing and Yang, Chuanguang and Dong, Zeyu and Tian, Yingli and Ho, Edmond S.L.},
+  booktitle={IEEE International Conference on Multimedia and Expo (ICME)},
+  year={2026}
+}`,
+      advvpt: `@article{li2025advvpt,
+  title={Achieving Fair Medical Image Segmentation in Foundation Models with Adversarial Visual Prompt Tuning},
+  author={Li, Yuqi and Li, Yanli and Zhang, Kai and Zhang, Fuyan and Yang, Chuanguang and Guo, Zhongliang and Ding, Weiping and Huang, Tingwen},
+  journal={Information Sciences},
+  year={2025}
+}`,
+      kspace: `@article{li2025kspace,
+  title={Efficient Medical Image Segmentation via Reinforcement Learning-Driven K-Space Sampling},
+  author={Li, Yuqi and Zeng, Hansheng and Zhang, Fuyan and Yang, Chuanguang and Li, Yanli and Ding, Weiping},
+  journal={IEEE Transactions on Emerging Topics in Computational Intelligence},
+  year={2025}
+}`,
+      cviu: `@article{li2026mram,
+  title={Towards Robust Medical Image Segmentation: Spectro-Spatial Domain Generalization with MRAM and DMIR},
+  author={Li, Yuqi and Dong, Junhao and Zeng, Hansheng and Zhang, Fuyan and Dong, Zeyu and Yang, Chuanguang and Tian, Yingli},
+  journal={Computer Vision and Image Understanding},
+  year={2026}
+}`,
+      pdd: `@article{xi2024pdd,
+  title={PDD: Pruning Neural Networks During Knowledge Distillation},
+  author={Xi, Dan and Yang, Wenjie and Zhang, Fuyan and Zhou, Yihang and Yu, Zhuojun and Qiu, Zhen and Zhao, Boyuan and Dong, Zeyu and Huang, Libo and Yang, Chuanguang},
+  journal={Cognitive Computation},
+  pages={1--11},
+  year={2024}
+}`,
+      cpg: `@inproceedings{yan2024cpg,
+  title={CPG: Channel Pruning for Effective Medical Image Segmentation Using DFS-Guided Grouping},
+  author={Yan, Xilin and Zhang, Fuyan and Li, Yuqi and Qiu, Zhen and Zhao, Boyuan and Li, Jiarui and Zeng, Hansheng and Chen, Yihao and Yang, Chuanguang},
+  booktitle={International Conference on Neural Information Processing (ICONIP)},
+  year={2024}
+}`,
+      meter: `@inproceedings{rong2024meter,
+  title={Automatic Meter Pointer Reading Based on Knowledge Distillation},
+  author={Rong, Sun and Yang, Wenjie and Zhang, Fuyan and Xiang, Yanzhuo and Wang, Hengxi and Jiang, Yuncheng},
+  booktitle={International Conference on Knowledge Science, Engineering and Management (KSEM)},
+  year={2024}
+}`
+    };
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    document.querySelectorAll("[data-bib]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const originalLabel = button.textContent;
+        try {
+          await copyText(citations[button.dataset.bib]);
+          button.textContent = "[copied ✓]";
+        } catch {
+          button.textContent = "[copy failed]";
+        }
+        window.setTimeout(() => {
+          button.textContent = originalLabel;
+        }, 1600);
+      });
+    });
+  </script>
+</body>
+</html>

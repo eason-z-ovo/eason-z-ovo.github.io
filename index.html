@@ -220,15 +220,12 @@
       background: var(--surface);
     }
 
-    .portrait-placeholder {
-      display: grid;
+    .portrait-image {
+      display: block;
       width: 202px;
       height: 240px;
-      place-items: center;
-      border: 1px dashed var(--border-strong);
-      color: var(--quiet);
-      font-size: 11px;
-      text-align: center;
+      object-fit: cover;
+      object-position: center;
     }
 
     .portrait-caption {
@@ -504,11 +501,11 @@
           </div>
         </div>
       </div>
-      <aside class="portrait" aria-label="Portrait placeholder">
+      <aside class="portrait">
         <div class="portrait-frame">
-          <div class="portrait-placeholder">[ portrait.jpg ]</div>
+          <img class="portrait-image" src="assets/profile.jpg" alt="Portrait of Fuyan Zhang in graduation attire" width="599" height="720" loading="eager" decoding="async" fetchpriority="high">
         </div>
-        <div class="portrait-caption">$ display portrait.jpg</div>
+        <div class="portrait-caption">$ display profile.jpg</div>
       </aside>
     </header>
 

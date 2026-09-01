@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#0b0e11">
   <meta name="description" content="Fuyan Zhang's academic homepage — efficient deep learning, model pruning, knowledge distillation, and 3D human motion generation.">
   <link rel="canonical" href="https://eason-z-ovo.github.io/">
+  <link rel="icon" href="assets/fuyan-logo.svg" type="image/svg+xml" sizes="any">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -79,7 +80,23 @@
 
     .terminal-home {
       flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       color: var(--accent);
+    }
+
+    .brand-logo {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+
+    .terminal-prompt {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .nav-links {
@@ -204,14 +221,6 @@
     .separator {
       margin-inline: 8px;
       color: var(--border-strong);
-    }
-
-    .unavailable-link {
-      color: var(--muted);
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      text-underline-offset: 3px;
-      cursor: help;
     }
 
     .portrait-frame {
@@ -392,6 +401,18 @@
       font-size: 12px;
     }
 
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-logo {
+      width: 23px;
+      height: 23px;
+      flex: 0 0 auto;
+    }
+
     @media (max-width: 800px) {
       .site-nav {
         align-items: flex-start;
@@ -435,9 +456,6 @@
     @media (max-width: 560px) {
       .terminal-home {
         max-width: 170px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
       }
 
       h1 {
@@ -476,7 +494,10 @@
 </head>
 <body>
   <nav class="site-nav" aria-label="Primary navigation">
-    <a class="terminal-home" href="#top">fuyan@edinburgh:~$</a>
+    <a class="terminal-home" href="#top">
+      <img class="brand-logo" src="assets/fuyan-logo.svg" alt="" aria-hidden="true" width="28" height="28">
+      <span class="terminal-prompt">fuyan@edinburgh:~$</span>
+    </a>
     <div class="nav-links">
       <a href="#publications">./publications</a>
       <a href="#education">./education</a>
@@ -497,7 +518,7 @@
           <div class="fact"><span class="fact-label">mail:</span><a href="mailto:F.Zhang-42@sms.ed.ac.uk">F.Zhang-42@sms.ed.ac.uk</a></div>
           <div class="fact">
             <span class="fact-label">link:</span>
-            <span><span class="unavailable-link" title="Google Scholar profile URL not provided">Google Scholar</span><span class="separator">·</span><a href="https://github.com/eason-z-ovo" target="_blank" rel="noopener">GitHub</a><span class="separator">·</span>Edinburgh, Scotland</span>
+            <span><a href="https://scholar.google.com/citations?user=R4_yFYoAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a><span class="separator">·</span><a href="https://github.com/eason-z-ovo" target="_blank" rel="noopener">GitHub</a><span class="separator">·</span>Edinburgh, Scotland</span>
           </div>
         </div>
       </div>
@@ -621,7 +642,7 @@
   </main>
 
   <footer class="shell site-footer">
-    <span>© 2026 Fuyan Zhang · built with a terminal aesthetic</span>
+    <span class="footer-brand"><img class="footer-logo" src="assets/fuyan-logo.svg" alt="" aria-hidden="true" width="23" height="23"><span>© 2026 Fuyan Zhang · built with a terminal aesthetic</span></span>
     <span>$ exit</span>
   </footer>
 

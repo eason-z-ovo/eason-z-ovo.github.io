@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/fuyan-logo.svg" type="image/svg+xml" sizes="any">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
   <title>Fuyan Zhang | Academic Homepage</title>
   <style>
     :root {
@@ -259,24 +259,126 @@
       color: var(--quiet);
     }
 
+    .publication-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: -14px 0 12px;
+    }
+
+    .filter-button,
+    .paper-link,
+    .bibtex-button {
+      border: 1px solid var(--border-strong);
+      border-radius: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 11px;
+      line-height: 1.4;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+    }
+
+    .filter-button {
+      padding: 7px 11px;
+    }
+
+    .filter-button span {
+      margin-left: 5px;
+      color: var(--quiet);
+    }
+
+    .filter-button:hover,
+    .filter-button:focus-visible,
+    .filter-button[aria-pressed="true"] {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-button[aria-pressed="true"] {
+      background: rgba(74, 222, 128, 0.08);
+    }
+
+    .filter-button[aria-pressed="true"] span {
+      color: var(--accent);
+    }
+
+    .publication-filter-status {
+      min-height: 17px;
+      margin: 0 0 20px;
+      color: var(--quiet);
+      font-size: 11px;
+    }
+
     .publication-list {
       display: grid;
       gap: 12px;
     }
 
     .publication {
+      position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: 280px minmax(0, 1fr);
       gap: 24px;
       align-items: start;
-      padding: 22px 26px;
+      padding: 18px;
       border: 1px solid var(--border);
       background: var(--surface);
       transition: border-color 150ms ease;
     }
 
+    .publication[hidden] {
+      display: none;
+    }
+
     .publication:hover {
       border-color: var(--border-strong);
+    }
+
+    .publication.is-selected {
+      border-left-color: var(--accent);
+    }
+
+    .publication-visual {
+      min-width: 0;
+      margin: 0;
+    }
+
+    .publication-figure-link {
+      display: flex;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border: 1px solid var(--border);
+      background: #edf1f2;
+      overflow: hidden;
+    }
+
+    .publication-figure-link:hover,
+    .publication-figure-link:focus-visible {
+      border-color: var(--accent);
+    }
+
+    .publication-figure {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .publication-visual figcaption {
+      margin-top: 8px;
+      color: var(--quiet);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .publication-body {
+      min-width: 0;
     }
 
     .publication-meta {
@@ -306,6 +408,11 @@
       font-size: 11px;
     }
 
+    .selected-label {
+      color: var(--accent);
+      font-size: 11px;
+    }
+
     .publication h3 {
       margin: 0 0 8px;
       font-size: 16px;
@@ -324,24 +431,52 @@
       font-weight: 600;
     }
 
-    .copy-button {
-      padding: 5px 10px;
-      border: 1px solid var(--border-strong);
-      border-radius: 0;
-      background: transparent;
-      color: var(--muted);
-      font: inherit;
-      font-size: 11px;
-      line-height: inherit;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: border-color 150ms ease, color 150ms ease;
+    .publication-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
     }
 
-    .copy-button:hover,
-    .copy-button:focus-visible {
+    .paper-link,
+    .bibtex-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+
+    .paper-link:hover,
+    .paper-link:focus-visible,
+    .bibtex-button:hover,
+    .bibtex-button:focus-visible,
+    .bibtex-button[aria-expanded="true"] {
       border-color: var(--accent);
       color: var(--accent);
+    }
+
+    .bibtex-indicator {
+      color: var(--accent);
+    }
+
+    .bibtex-panel {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      background: var(--background);
+      overflow-x: auto;
+    }
+
+    .bibtex-panel[hidden] {
+      display: none;
+    }
+
+    .bibtex-panel pre {
+      margin: 0;
+      padding: 14px;
+      color: var(--text-soft);
+      font: 11px/1.65 "IBM Plex Mono", ui-monospace, monospace;
+      white-space: pre;
     }
 
     .timeline {
@@ -441,6 +576,11 @@
         width: 220px;
       }
 
+      .publication {
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 18px;
+      }
+
       .timeline-row,
       .timeline-row.experience-row {
         grid-template-columns: 1fr;
@@ -475,10 +615,6 @@
         grid-template-columns: 1fr;
         gap: 16px;
         padding: 20px;
-      }
-
-      .copy-button {
-        justify-self: start;
       }
 
       .section {
@@ -531,69 +667,236 @@
     </header>
 
     <section class="shell section" id="publications" aria-labelledby="publications-title">
-      <h2 class="section-command" id="publications-title">$ ls publications/ <span class="comment"># 7 papers · 1 first-author spotlight</span></h2>
+      <h2 class="section-command" id="publications-title">$ ls publications/ <span class="comment" id="publication-summary"># selected · 3 of 7 papers</span></h2>
+      <div class="publication-toolbar" role="group" aria-label="Filter publications">
+        <button class="filter-button" type="button" data-publication-filter="selected" data-filter-label="selected" aria-pressed="true">Selected <span>03</span></button>
+        <button class="filter-button" type="button" data-publication-filter="all" data-filter-label="all" aria-pressed="false">All <span>07</span></button>
+        <button class="filter-button" type="button" data-publication-filter="efficient" data-filter-label="efficient AI" aria-pressed="false">Efficient AI <span>05</span></button>
+        <button class="filter-button" type="button" data-publication-filter="medical" data-filter-label="medical AI" aria-pressed="false">Medical AI <span>04</span></button>
+      </div>
+      <p class="publication-filter-status" id="publication-filter-status" aria-live="polite">Showing 3 selected publications.</p>
       <div class="publication-list">
-        <article class="publication">
-          <div>
-            <div class="publication-meta"><span class="venue spotlight">ICME 2026 · SPOTLIGHT</span><span class="first-author">★ first author</span></div>
-            <h3>Dyna-Pruner: Input-Adaptive Data–Model Co-Pruning for Efficient and Scalable Spatio-Temporal Media Prediction</h3>
-            <div class="authors"><strong>F. Zhang</strong>, Y. Li, Q. Xu, C. Yang, Z. Dong, Y. Tian, E.S.L. Ho</div>
+        <article class="publication is-selected" data-categories="selected efficient">
+          <figure class="publication-visual">
+            <a class="publication-figure-link" href="https://arxiv.org/abs/2606.15346" target="_blank" rel="noopener" aria-label="Open the Dyna-Pruner preprint">
+              <img class="publication-figure" src="assets/publications/dyna.webp" alt="Dyna-Pruner framework jointly producing data and model masks for sparse inference" width="1200" height="598" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Fig. 1 · Joint data–model pruning framework</figcaption>
+          </figure>
+          <div class="publication-body">
+            <div class="publication-meta"><span class="venue spotlight">ICME 2026 · SPOTLIGHT</span><span class="first-author">★ first author</span><span class="selected-label">◆ selected</span></div>
+            <h3>DYNA-PRUNER: Input-Adaptive Data-Model Co-Pruning for Efficient and Scalable Spatio-Temporal Media Prediction</h3>
+            <div class="authors"><strong>F. Zhang</strong>, Y. Li, Q. Xu, Y. Tian, E.S.L. Ho</div>
+            <div class="publication-actions">
+              <a class="paper-link" href="https://arxiv.org/abs/2606.15346" target="_blank" rel="noopener">Preprint <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-dyna">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+            </div>
+            <div class="bibtex-panel" id="bibtex-dyna" hidden>
+              <pre><code>@misc{zhang2026dynapruner,
+  title         = {DYNA-PRUNER: Input-Adaptive Data-Model Co-Pruning for Efficient and Scalable Spatio-Temporal Media Prediction},
+  author        = {Zhang, Fuyan and Li, Yuqi and Xu, Qing and Tian, Yingli and Ho, Edmond S. L.},
+  year          = {2026},
+  eprint        = {2606.15346},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi           = {10.48550/arXiv.2606.15346},
+  url           = {https://arxiv.org/abs/2606.15346},
+  note          = {ICME 2026 Spotlight Paper}
+}</code></pre>
+            </div>
           </div>
-          <button class="copy-button" type="button" data-bib="dyna" aria-label="Copy Dyna-Pruner BibTeX citation">[bibtex]</button>
         </article>
 
-        <article class="publication">
-          <div>
-            <div class="publication-meta"><span class="venue">INFORMATION SCIENCES · JCR-Q1</span></div>
+        <article class="publication is-selected" data-categories="selected medical">
+          <figure class="publication-visual">
+            <a class="publication-figure-link" href="https://doi.org/10.1016/j.ins.2025.122501" target="_blank" rel="noopener" aria-label="Open the AdvVPT paper page">
+              <img class="publication-figure" src="assets/publications/advvpt.webp" alt="AdvVPT framework for fair medical image segmentation with adversarial visual prompts" width="1200" height="678" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Fig. 1 · Adversarial visual prompt tuning</figcaption>
+          </figure>
+          <div class="publication-body">
+            <div class="publication-meta"><span class="venue">INFORMATION SCIENCES · JCR-Q1</span><span class="selected-label">◆ selected</span></div>
             <h3>Achieving Fair Medical Image Segmentation in Foundation Models with Adversarial Visual Prompt Tuning</h3>
             <div class="authors">Y. Li, Y. Li, K. Zhang, <strong>F. Zhang</strong>, C. Yang, Z. Guo, W. Ding, T. Huang</div>
+            <div class="publication-actions">
+              <a class="paper-link" href="https://doi.org/10.1016/j.ins.2025.122501" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-advvpt">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+            </div>
+            <div class="bibtex-panel" id="bibtex-advvpt" hidden>
+              <pre><code>@article{li2025advvpt,
+  title     = {Achieving Fair Medical Image Segmentation in Foundation Models with Adversarial Visual Prompt Tuning},
+  author    = {Li, Yuqi and Li, Yanli and Zhang, Kai and Zhang, Fuyan and Yang, Chuanguang and Guo, Zhongliang and Ding, Weiping and Huang, Tingwen},
+  journal   = {Information Sciences},
+  volume    = {720},
+  pages     = {122501},
+  year      = {2025},
+  month     = dec,
+  publisher = {Elsevier},
+  doi       = {10.1016/j.ins.2025.122501},
+  url       = {https://doi.org/10.1016/j.ins.2025.122501}
+}</code></pre>
+            </div>
           </div>
-          <button class="copy-button" type="button" data-bib="advvpt" aria-label="Copy AdvVPT BibTeX citation">[bibtex]</button>
         </article>
 
-        <article class="publication">
-          <div>
-            <div class="publication-meta"><span class="venue">IEEE TETCI · JCR-Q1</span></div>
+        <article class="publication is-selected" data-categories="selected efficient medical">
+          <figure class="publication-visual">
+            <a class="publication-figure-link" href="https://doi.org/10.1109/TETCI.2025.3621221" target="_blank" rel="noopener" aria-label="Open the K-space sampling paper page">
+              <img class="publication-figure" src="assets/publications/kspace.webp" alt="Reinforcement learning pipeline for adaptive K-space sampling and medical image segmentation" width="1200" height="482" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Fig. 1 · RL-driven K-space sampling pipeline</figcaption>
+          </figure>
+          <div class="publication-body">
+            <div class="publication-meta"><span class="venue">IEEE TETCI · JCR-Q1</span><span class="selected-label">◆ selected</span></div>
             <h3>Efficient Medical Image Segmentation via Reinforcement Learning-Driven K-Space Sampling</h3>
             <div class="authors">Y. Li, H. Zeng, <strong>F. Zhang</strong>, C. Yang, Y. Li, W. Ding</div>
+            <div class="publication-actions">
+              <a class="paper-link" href="https://doi.org/10.1109/TETCI.2025.3621221" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-kspace">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+            </div>
+            <div class="bibtex-panel" id="bibtex-kspace" hidden>
+              <pre><code>@article{li2026kspace,
+  title     = {Efficient Medical Image Segmentation via Reinforcement Learning-Driven K-Space Sampling},
+  author    = {Li, Yuqi and Zeng, Hansheng and Zhang, Fuyan and Yang, Chuanguang and Li, Yanli and Ding, Weiping},
+  journal   = {IEEE Transactions on Emerging Topics in Computational Intelligence},
+  volume    = {10},
+  number    = {3},
+  pages     = {2596--2609},
+  year      = {2026},
+  month     = jun,
+  publisher = {IEEE},
+  doi       = {10.1109/TETCI.2025.3621221},
+  url       = {https://doi.org/10.1109/TETCI.2025.3621221}
+}</code></pre>
+            </div>
           </div>
-          <button class="copy-button" type="button" data-bib="kspace" aria-label="Copy K-Space Sampling BibTeX citation">[bibtex]</button>
         </article>
 
-        <article class="publication">
-          <div>
+        <article class="publication" data-categories="medical" hidden>
+          <figure class="publication-visual">
+            <a class="publication-figure-link" href="https://doi.org/10.1016/j.cviu.2026.104822" target="_blank" rel="noopener" aria-label="Open the MRAM and DMIR paper page">
+              <img class="publication-figure" src="assets/publications/mram.webp" alt="Comparison motivating multi-band amplitude mixup and domain-specific mask image reconstruction" width="1200" height="504" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Fig. 1 · Motivation for MRAM and DMIR</figcaption>
+          </figure>
+          <div class="publication-body">
             <div class="publication-meta"><span class="venue">CVIU · JCR-Q1</span></div>
             <h3>Towards Robust Medical Image Segmentation: Spectro-Spatial Domain Generalization with MRAM and DMIR</h3>
             <div class="authors">Y. Li, J. Dong, H. Zeng, <strong>F. Zhang</strong>, Z. Dong, C. Yang, Y. Tian</div>
+            <div class="publication-actions">
+              <a class="paper-link" href="https://doi.org/10.1016/j.cviu.2026.104822" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-mram">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+            </div>
+            <div class="bibtex-panel" id="bibtex-mram" hidden>
+              <pre><code>@article{li2026mram,
+  title     = {Towards Robust Medical Image Segmentation: Spectro-Spatial Domain Generalization with MRAM and DMIR},
+  author    = {Li, Yuqi and Dong, Junhao and Zeng, Hansheng and Zhang, Fuyan and Dong, Zeyu and Yang, Chuanguang and Tian, Yingli},
+  journal   = {Computer Vision and Image Understanding},
+  volume    = {270},
+  pages     = {104822},
+  year      = {2026},
+  month     = aug,
+  publisher = {Elsevier},
+  doi       = {10.1016/j.cviu.2026.104822},
+  url       = {https://doi.org/10.1016/j.cviu.2026.104822}
+}</code></pre>
+            </div>
           </div>
-          <button class="copy-button" type="button" data-bib="cviu" aria-label="Copy MRAM and DMIR BibTeX citation">[bibtex]</button>
         </article>
 
-        <article class="publication">
-          <div>
+        <article class="publication" data-categories="efficient" hidden>
+          <figure class="publication-visual">
+            <a class="publication-figure-link" href="https://link.springer.com/article/10.1007/s12559-024-10350-9/figures/2" target="_blank" rel="noopener" aria-label="Open the full PDD method figure">
+              <img class="publication-figure" src="assets/publications/pdd.webp" alt="PDD teacher-student knowledge distillation pipeline and dynamic mask mechanism" width="900" height="993" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Fig. 2 · PDD pipeline and dynamic mask</figcaption>
+          </figure>
+          <div class="publication-body">
             <div class="publication-meta"><span class="venue">COGNITIVE COMPUTATION · JCR-Q1</span></div>
             <h3>PDD: Pruning Neural Networks During Knowledge Distillation</h3>
             <div class="authors">D. Xi, W. Yang, <strong>F. Zhang</strong>, Y. Zhou, Z. Yu, Z. Qiu, B. Zhao, Z. Dong, L. Huang, C. Yang</div>
+            <div class="publication-actions">
+              <a class="paper-link" href="https://doi.org/10.1007/s12559-024-10350-9" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-pdd">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+            </div>
+            <div class="bibtex-panel" id="bibtex-pdd" hidden>
+              <pre><code>@article{xi2024pdd,
+  title     = {PDD: Pruning Neural Networks During Knowledge Distillation},
+  author    = {Xi, Dan and Yang, Wenjie and Zhang, Fuyan and Zhou, Yihang and Yu, Zhuojun and Qiu, Zhen and Zhao, Boyuan and Dong, Zeyu and Huang, Libo and Yang, Chuanguang},
+  journal   = {Cognitive Computation},
+  volume    = {16},
+  number    = {6},
+  pages     = {3457--3467},
+  year      = {2024},
+  month     = aug,
+  publisher = {Springer},
+  doi       = {10.1007/s12559-024-10350-9},
+  url       = {https://doi.org/10.1007/s12559-024-10350-9}
+}</code></pre>
+            </div>
           </div>
-          <button class="copy-button" type="button" data-bib="pdd" aria-label="Copy PDD BibTeX citation">[bibtex]</button>
         </article>
 
-        <article class="publication">
-          <div>
+        <article class="publication" data-categories="efficient medical" hidden>
+          <figure class="publication-visual">
+            <a class="publication-figure-link" href="https://link.springer.com/chapter/10.1007/978-981-96-6585-3_20/figures/1" target="_blank" rel="noopener" aria-label="Open the full CPG method figure">
+              <img class="publication-figure" src="assets/publications/cpg.webp" alt="CPG method showing DFS-guided channel grouping and L2-norm pruning" width="1100" height="903" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Fig. 1 · DFS-guided grouping and pruning</figcaption>
+          </figure>
+          <div class="publication-body">
             <div class="publication-meta"><span class="venue">ICONIP 2024 · CCF-C / CORE-A</span></div>
-            <h3>CPG: Channel Pruning for Effective Medical Image Segmentation Using DFS-Guided Grouping</h3>
+            <h3>CPG: Channel Pruning with DFS Guided Grouping for Efficient Medical Image Segmentation</h3>
             <div class="authors">X. Yan, <strong>F. Zhang</strong>, Y. Li, Z. Qiu, B. Zhao, J. Li, H. Zeng, Y. Chen, C. Yang</div>
+            <div class="publication-actions">
+              <a class="paper-link" href="https://doi.org/10.1007/978-981-96-6585-3_20" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-cpg">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+            </div>
+            <div class="bibtex-panel" id="bibtex-cpg" hidden>
+              <pre><code>@incollection{yan2025cpg,
+  title     = {CPG: Channel Pruning with DFS Guided Grouping for Efficient Medical Image Segmentation},
+  author    = {Yan, Xilin and Zhang, Fuyan and Li, Yuqi and Qiu, Zhen and Zhao, Boyuan and Li, Jiarui and Zeng, Hansheng and Chen, Yihao and Yang, Chuanguang},
+  booktitle = {Neural Information Processing},
+  pages     = {284--297},
+  year      = {2025},
+  publisher = {Springer Nature Singapore},
+  isbn      = {978-981-96-6585-3},
+  doi       = {10.1007/978-981-96-6585-3_20},
+  url       = {https://doi.org/10.1007/978-981-96-6585-3_20}
+}</code></pre>
+            </div>
           </div>
-          <button class="copy-button" type="button" data-bib="cpg" aria-label="Copy CPG BibTeX citation">[bibtex]</button>
         </article>
 
-        <article class="publication">
-          <div>
+        <article class="publication" data-categories="efficient" hidden>
+          <figure class="publication-visual">
+            <a class="publication-figure-link" href="https://link.springer.com/chapter/10.1007/978-981-97-5492-2_29/figures/1" target="_blank" rel="noopener" aria-label="Open the full meter-reading method figure">
+              <img class="publication-figure" src="assets/publications/meter.webp" alt="Knowledge-distillation network with teacher and MobileNetV3 student for automatic meter reading" width="1200" height="623" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Fig. 1 · KKN teacher–student architecture</figcaption>
+          </figure>
+          <div class="publication-body">
             <div class="publication-meta"><span class="venue">KSEM 2024 · CCF-C / CORE-B</span></div>
             <h3>Automatic Meter Pointer Reading Based on Knowledge Distillation</h3>
             <div class="authors">S. Rong, W. Yang, <strong>F. Zhang</strong>, Y. Xiang, H. Wang, Y. Jiang</div>
+            <div class="publication-actions">
+              <a class="paper-link" href="https://doi.org/10.1007/978-981-97-5492-2_29" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-meter">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+            </div>
+            <div class="bibtex-panel" id="bibtex-meter" hidden>
+              <pre><code>@incollection{rong2024meter,
+  title     = {Automatic Meter Pointer Reading Based on Knowledge Distillation},
+  author    = {Rong, Sun and Yang, Wenjie and Zhang, Fuyan and Xiang, Yanzhuo and Wang, Hengxi and Jiang, Yuncheng},
+  booktitle = {Knowledge Science, Engineering and Management},
+  pages     = {376--392},
+  year      = {2024},
+  publisher = {Springer Nature Singapore},
+  isbn      = {978-981-97-5492-2},
+  doi       = {10.1007/978-981-97-5492-2_29},
+  url       = {https://doi.org/10.1007/978-981-97-5492-2_29}
+}</code></pre>
+            </div>
           </div>
-          <button class="copy-button" type="button" data-bib="meter" aria-label="Copy meter-reading BibTeX citation">[bibtex]</button>
         </article>
       </div>
     </section>
@@ -647,81 +950,55 @@
   </footer>
 
   <script>
-    const citations = {
-      dyna: `@inproceedings{zhang2026dynapruner,
-  title={Dyna-Pruner: Input-Adaptive Data--Model Co-Pruning for Efficient and Scalable Spatio-Temporal Media Prediction},
-  author={Zhang, Fuyan and Li, Yuqi and Xu, Qing and Yang, Chuanguang and Dong, Zeyu and Tian, Yingli and Ho, Edmond S.L.},
-  booktitle={IEEE International Conference on Multimedia and Expo (ICME)},
-  year={2026}
-}`,
-      advvpt: `@article{li2025advvpt,
-  title={Achieving Fair Medical Image Segmentation in Foundation Models with Adversarial Visual Prompt Tuning},
-  author={Li, Yuqi and Li, Yanli and Zhang, Kai and Zhang, Fuyan and Yang, Chuanguang and Guo, Zhongliang and Ding, Weiping and Huang, Tingwen},
-  journal={Information Sciences},
-  year={2025}
-}`,
-      kspace: `@article{li2025kspace,
-  title={Efficient Medical Image Segmentation via Reinforcement Learning-Driven K-Space Sampling},
-  author={Li, Yuqi and Zeng, Hansheng and Zhang, Fuyan and Yang, Chuanguang and Li, Yanli and Ding, Weiping},
-  journal={IEEE Transactions on Emerging Topics in Computational Intelligence},
-  year={2025}
-}`,
-      cviu: `@article{li2026mram,
-  title={Towards Robust Medical Image Segmentation: Spectro-Spatial Domain Generalization with MRAM and DMIR},
-  author={Li, Yuqi and Dong, Junhao and Zeng, Hansheng and Zhang, Fuyan and Dong, Zeyu and Yang, Chuanguang and Tian, Yingli},
-  journal={Computer Vision and Image Understanding},
-  year={2026}
-}`,
-      pdd: `@article{xi2024pdd,
-  title={PDD: Pruning Neural Networks During Knowledge Distillation},
-  author={Xi, Dan and Yang, Wenjie and Zhang, Fuyan and Zhou, Yihang and Yu, Zhuojun and Qiu, Zhen and Zhao, Boyuan and Dong, Zeyu and Huang, Libo and Yang, Chuanguang},
-  journal={Cognitive Computation},
-  pages={1--11},
-  year={2024}
-}`,
-      cpg: `@inproceedings{yan2024cpg,
-  title={CPG: Channel Pruning for Effective Medical Image Segmentation Using DFS-Guided Grouping},
-  author={Yan, Xilin and Zhang, Fuyan and Li, Yuqi and Qiu, Zhen and Zhao, Boyuan and Li, Jiarui and Zeng, Hansheng and Chen, Yihao and Yang, Chuanguang},
-  booktitle={International Conference on Neural Information Processing (ICONIP)},
-  year={2024}
-}`,
-      meter: `@inproceedings{rong2024meter,
-  title={Automatic Meter Pointer Reading Based on Knowledge Distillation},
-  author={Rong, Sun and Yang, Wenjie and Zhang, Fuyan and Xiang, Yanzhuo and Wang, Hengxi and Jiang, Yuncheng},
-  booktitle={International Conference on Knowledge Science, Engineering and Management (KSEM)},
-  year={2024}
-}`
-    };
+    const publicationCards = Array.from(document.querySelectorAll(".publication"));
+    const filterButtons = Array.from(document.querySelectorAll("[data-publication-filter]"));
+    const publicationSummary = document.querySelector("#publication-summary");
+    const filterStatus = document.querySelector("#publication-filter-status");
 
-    async function copyText(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        return;
-      }
-
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.setAttribute("readonly", "");
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      textarea.remove();
+    function closeBibTeX(card) {
+      const button = card.querySelector("[data-bib-toggle]");
+      const panel = card.querySelector(".bibtex-panel");
+      if (!button || !panel) return;
+      button.setAttribute("aria-expanded", "false");
+      button.querySelector(".bibtex-indicator").textContent = "+";
+      panel.hidden = true;
     }
 
-    document.querySelectorAll("[data-bib]").forEach((button) => {
-      button.addEventListener("click", async () => {
-        const originalLabel = button.textContent;
-        try {
-          await copyText(citations[button.dataset.bib]);
-          button.textContent = "[copied ✓]";
-        } catch {
-          button.textContent = "[copy failed]";
+    function filterPublications(activeButton) {
+      const filter = activeButton.dataset.publicationFilter;
+      const label = activeButton.dataset.filterLabel;
+      let visibleCount = 0;
+
+      filterButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button === activeButton));
+      });
+
+      publicationCards.forEach((card) => {
+        const categories = card.dataset.categories.split(" ");
+        const isVisible = filter === "all" || categories.includes(filter);
+        card.hidden = !isVisible;
+        if (isVisible) {
+          visibleCount += 1;
+        } else {
+          closeBibTeX(card);
         }
-        window.setTimeout(() => {
-          button.textContent = originalLabel;
-        }, 1600);
+      });
+
+      publicationSummary.textContent = `# ${label} · ${visibleCount} of ${publicationCards.length} papers`;
+      filterStatus.textContent = `Showing ${visibleCount} ${label} publication${visibleCount === 1 ? "" : "s"}.`;
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => filterPublications(button));
+    });
+
+    document.querySelectorAll("[data-bib-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        const isExpanded = button.getAttribute("aria-expanded") === "true";
+        button.setAttribute("aria-expanded", String(!isExpanded));
+        button.querySelector(".bibtex-indicator").textContent = isExpanded ? "+" : "−";
+        panel.hidden = isExpanded;
       });
     });
   </script>

@@ -485,16 +485,37 @@
 
     .timeline-row {
       display: grid;
-      grid-template-columns: 200px minmax(0, 1fr) auto;
+      grid-template-columns: 200px minmax(0, 1fr);
       gap: 28px;
-      align-items: baseline;
+      align-items: center;
       padding: 22px 0;
       border-top: 1px solid var(--border);
     }
 
-    .timeline-row.experience-row {
+    .timeline-entry {
+      display: grid;
       grid-template-columns: 200px minmax(0, 1fr);
-      align-items: start;
+      gap: 22px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .institution-logo {
+      display: flex;
+      width: 200px;
+      height: 80px;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 10px;
+      border: 1px solid var(--border);
+      background: #f4f6f7;
+    }
+
+    .institution-logo img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
 
     .date {
@@ -513,17 +534,6 @@
       font-family: "IBM Plex Sans", system-ui, sans-serif;
       font-size: 14px;
       line-height: 1.55;
-    }
-
-    .result {
-      color: var(--muted);
-      font-size: 12px;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .result.highlight {
-      color: var(--accent);
     }
 
     .site-footer {
@@ -581,15 +591,9 @@
         gap: 18px;
       }
 
-      .timeline-row,
-      .timeline-row.experience-row {
+      .timeline-row {
         grid-template-columns: 1fr;
         gap: 8px;
-      }
-
-      .result {
-        text-align: left;
-        white-space: normal;
       }
     }
 
@@ -615,6 +619,15 @@
         grid-template-columns: 1fr;
         gap: 16px;
         padding: 20px;
+      }
+
+      .timeline-entry {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .institution-logo {
+        width: min(100%, 200px);
       }
 
       .section {
@@ -906,19 +919,27 @@
       <div class="timeline">
         <article class="timeline-row">
           <div class="date">2025.09 — 2026.09</div>
-          <div>
-            <div class="timeline-title">University of Edinburgh</div>
-            <div class="timeline-detail">MSc in High Performance Computing with Data Science</div>
+          <div class="timeline-entry">
+            <div class="institution-logo" aria-hidden="true">
+              <img src="assets/institutions/edinburgh.png" alt="" width="700" height="167" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="timeline-title">University of Edinburgh</div>
+              <div class="timeline-detail">MSc in High Performance Computing with Data Science</div>
+            </div>
           </div>
-          <div class="result highlight">72% · expected distinction</div>
         </article>
         <article class="timeline-row">
           <div class="date">2022.09 — 2025.06</div>
-          <div>
-            <div class="timeline-title">University of Glasgow</div>
-            <div class="timeline-detail">BSc (Honours) in Computing Science</div>
+          <div class="timeline-entry">
+            <div class="institution-logo" aria-hidden="true">
+              <img src="assets/institutions/glasgow.png" alt="" width="300" height="137" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="timeline-title">University of Glasgow</div>
+              <div class="timeline-detail">BSc (Honours) in Computing Science</div>
+            </div>
           </div>
-          <div class="result">upper second class (2:1)</div>
         </article>
       </div>
     </section>
@@ -926,18 +947,28 @@
     <section class="shell section" id="experience" aria-labelledby="experience-title">
       <h2 class="section-command" id="experience-title">$ cat experience.log</h2>
       <div class="timeline">
-        <article class="timeline-row experience-row">
+        <article class="timeline-row">
           <div class="date">2025.07 — 2025.09</div>
-          <div>
-            <div class="timeline-title">Research Intern · University of Glasgow</div>
-            <div class="timeline-detail">School of Computing Science · Supervisor: Dr. Edmond S.L. Ho — dynamic data–model co-pruning for spatio-temporal prediction (→ Dyna-Pruner, ICME 2026 Spotlight)</div>
+          <div class="timeline-entry">
+            <div class="institution-logo" aria-hidden="true">
+              <img src="assets/institutions/glasgow.png" alt="" width="300" height="137" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="timeline-title">Research Intern · University of Glasgow</div>
+              <div class="timeline-detail">School of Computing Science · Supervisor: Dr. Edmond S.L. Ho — dynamic data–model co-pruning for spatio-temporal prediction (→ Dyna-Pruner, ICME 2026 Spotlight)</div>
+            </div>
           </div>
         </article>
-        <article class="timeline-row experience-row">
+        <article class="timeline-row">
           <div class="date">2024.06 — 2024.08</div>
-          <div>
-            <div class="timeline-title">Research Assistant · Institute of Computing Technology, CAS</div>
-            <div class="timeline-detail">Beijing · Supervisor: Dr. Chuanguang Yang — model pruning and knowledge distillation across medical segmentation and detection (→ 4 co-authored papers)</div>
+          <div class="timeline-entry">
+            <div class="institution-logo" aria-hidden="true">
+              <img src="assets/institutions/ict-cas.png" alt="" width="343" height="84" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="timeline-title">Research Assistant · Institute of Computing Technology, CAS</div>
+              <div class="timeline-detail">Beijing · Supervisor: Dr. Chuanguang Yang — model pruning and knowledge distillation across medical segmentation and detection (→ 4 co-authored papers)</div>
+            </div>
           </div>
         </article>
       </div>

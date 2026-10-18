@@ -3,691 +3,90 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0e11">
-  <meta name="description" content="Fuyan Zhang's academic homepage — efficient deep learning, model pruning, knowledge distillation, and 3D human motion generation.">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta name="description" content="Fuyan Zhang — research interests in compositional 3D human motion, reference-guided motion reuse, and efficient machine learning.">
   <link rel="canonical" href="https://eason-z-ovo.github.io/">
-  <link rel="icon" href="assets/fuyan-logo.svg" type="image/svg+xml" sizes="any">
+  <link rel="icon" href="assets/fuyan-mark.svg" type="image/svg+xml" sizes="any">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fuyan Zhang · Motion, composition & efficient learning">
+  <meta property="og:description" content="Exploring how human motion can be reused and adapted across new contexts.">
+  <meta property="og:url" content="https://eason-z-ovo.github.io/">
+  <meta property="og:image" content="https://eason-z-ovo.github.io/assets/profile.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
-  <title>Fuyan Zhang | Academic Homepage</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --background: #0b0e11;
-      --surface: #0f1419;
-      --border: #1f2937;
-      --border-strong: #374151;
-      --text: #d3dae2;
-      --text-soft: #aeb9c4;
-      --muted: #8b98a5;
-      --quiet: #4b5563;
-      --accent: #4ade80;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 76px;
-    }
-
-    body {
-      margin: 0;
-      min-width: 320px;
-      background: var(--background);
-      color: var(--text);
-      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    }
-
-    a {
-      color: var(--text);
-      text-underline-offset: 3px;
-      transition: color 150ms ease;
-    }
-
-    a:hover,
-    a:focus-visible {
-      color: var(--accent);
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      padding: 18px 40px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(11, 14, 17, 0.92);
-      backdrop-filter: blur(6px);
-      font-size: 13px;
-    }
-
-    .terminal-home,
-    .nav-links a {
-      text-decoration: none;
-    }
-
-    .terminal-home {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--accent);
-    }
-
-    .brand-logo {
-      width: 28px;
-      height: 28px;
-      flex: 0 0 auto;
-    }
-
-    .terminal-prompt {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 26px;
-    }
-
-    .nav-links a:not(.cv-link) {
-      color: var(--muted);
-    }
-
-    .nav-links a:not(.cv-link):hover,
-    .nav-links a:not(.cv-link):focus-visible {
-      color: var(--accent);
-    }
-
-    .cv-link {
-      padding: 6px 14px;
-      background: var(--accent);
-      color: var(--background);
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .cv-link:hover,
-    .cv-link:focus-visible {
-      color: var(--background);
-      background: #86efac;
-    }
-
-    .shell {
-      width: min(100%, 1140px);
-      margin: 0 auto;
-      padding-inline: 40px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 220px;
-      gap: 56px;
-      align-items: start;
-      padding-block: 88px 72px;
-    }
-
-    .command {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 9px;
-      height: 17px;
-      margin-left: 8px;
-      vertical-align: text-bottom;
-      background: var(--accent);
-      animation: blink 1.1s infinite;
-    }
-
-    @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .cursor { animation: none; }
-    }
-
-    h1 {
-      margin: 0 0 26px;
-      font-size: clamp(48px, 7vw, 68px);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-    }
-
-    .intro {
-      max-width: 620px;
-      margin: 0 0 28px;
-      color: var(--text-soft);
-      font-family: "IBM Plex Sans", system-ui, sans-serif;
-      font-size: 19px;
-      line-height: 1.65;
-    }
-
-    .intro strong {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .facts {
-      display: grid;
-      gap: 4px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.75;
-    }
-
-    .fact {
-      display: grid;
-      grid-template-columns: 42px minmax(0, 1fr);
-      gap: 12px;
-    }
-
-    .fact-label {
-      color: var(--accent);
-    }
-
-    .fact a {
-      color: var(--muted);
-    }
-
-    .fact a:hover,
-    .fact a:focus-visible {
-      color: var(--accent);
-    }
-
-    .separator {
-      margin-inline: 8px;
-      color: var(--border-strong);
-    }
-
-    .portrait-frame {
-      padding: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-    }
-
-    .portrait-image {
-      display: block;
-      width: 202px;
-      height: 240px;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .portrait-caption {
-      margin-top: 10px;
-      color: var(--quiet);
-      font-size: 11px;
-    }
-
-    .section {
-      padding-block: 56px;
-      border-top: 1px solid var(--border);
-    }
-
-    .section-command {
-      margin: 0 0 32px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 400;
-    }
-
-    .comment {
-      color: var(--quiet);
-    }
-
-    .publication-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: -14px 0 12px;
-    }
-
-    .filter-button,
-    .paper-link,
-    .bibtex-button {
-      border: 1px solid var(--border-strong);
-      border-radius: 0;
-      background: transparent;
-      color: var(--muted);
-      font: inherit;
-      font-size: 11px;
-      line-height: 1.4;
-      text-decoration: none;
-      cursor: pointer;
-      transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
-    }
-
-    .filter-button {
-      padding: 7px 11px;
-    }
-
-    .filter-button span {
-      margin-left: 5px;
-      color: var(--quiet);
-    }
-
-    .filter-button:hover,
-    .filter-button:focus-visible,
-    .filter-button[aria-pressed="true"] {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .filter-button[aria-pressed="true"] {
-      background: rgba(74, 222, 128, 0.08);
-    }
-
-    .filter-button[aria-pressed="true"] span {
-      color: var(--accent);
-    }
-
-    .publication-filter-status {
-      min-height: 17px;
-      margin: 0 0 20px;
-      color: var(--quiet);
-      font-size: 11px;
-    }
-
-    .publication-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .publication {
-      position: relative;
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
-      gap: 24px;
-      align-items: start;
-      padding: 18px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      transition: border-color 150ms ease;
-    }
-
-    .publication[hidden] {
-      display: none;
-    }
-
-    .publication:hover {
-      border-color: var(--border-strong);
-    }
-
-    .publication.is-selected {
-      border-left-color: var(--accent);
-    }
-
-    .publication-visual {
-      min-width: 0;
-      margin: 0;
-    }
-
-    .publication-figure-link {
-      display: flex;
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      align-items: center;
-      justify-content: center;
-      padding: 8px;
-      border: 1px solid var(--border);
-      background: #edf1f2;
-      overflow: hidden;
-    }
-
-    .publication-figure-link:hover,
-    .publication-figure-link:focus-visible {
-      border-color: var(--accent);
-    }
-
-    .publication-figure {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .publication-visual figcaption {
-      margin-top: 8px;
-      color: var(--quiet);
-      font-size: 10px;
-      line-height: 1.45;
-    }
-
-    .publication-body {
-      min-width: 0;
-    }
-
-    .publication-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 9px;
-    }
-
-    .venue {
-      padding: 3px 8px;
-      border: 1px solid var(--border-strong);
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .venue.spotlight {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: var(--background);
-      font-weight: 600;
-    }
-
-    .first-author {
-      color: var(--accent);
-      font-size: 11px;
-    }
-
-    .selected-label {
-      color: var(--accent);
-      font-size: 11px;
-    }
-
-    .publication h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.5;
-    }
-
-    .authors {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-    .authors strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .publication-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .paper-link,
-    .bibtex-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 10px;
-      white-space: nowrap;
-    }
-
-    .paper-link:hover,
-    .paper-link:focus-visible,
-    .bibtex-button:hover,
-    .bibtex-button:focus-visible,
-    .bibtex-button[aria-expanded="true"] {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .bibtex-indicator {
-      color: var(--accent);
-    }
-
-    .bibtex-panel {
-      margin-top: 12px;
-      border: 1px solid var(--border);
-      background: var(--background);
-      overflow-x: auto;
-    }
-
-    .bibtex-panel[hidden] {
-      display: none;
-    }
-
-    .bibtex-panel pre {
-      margin: 0;
-      padding: 14px;
-      color: var(--text-soft);
-      font: 11px/1.65 "IBM Plex Mono", ui-monospace, monospace;
-      white-space: pre;
-    }
-
-    .timeline {
-      display: grid;
-    }
-
-    .timeline-row {
-      display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 28px;
-      align-items: center;
-      padding: 22px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .timeline-entry {
-      display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 22px;
-      align-items: center;
-      min-width: 0;
-    }
-
-    .institution-logo {
-      display: flex;
-      width: 200px;
-      height: 80px;
-      align-items: center;
-      justify-content: center;
-      padding: 9px 10px;
-      border: 1px solid var(--border);
-      background: #f4f6f7;
-    }
-
-    .institution-logo img {
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .date {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .timeline-title {
-      margin-bottom: 6px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .timeline-detail {
-      color: var(--text-soft);
-      font-family: "IBM Plex Sans", system-ui, sans-serif;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .site-footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      padding-block: 28px;
-      border-top: 1px solid var(--border);
-      color: var(--quiet);
-      font-size: 12px;
-    }
-
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .footer-logo {
-      width: 23px;
-      height: 23px;
-      flex: 0 0 auto;
-    }
-
-    @media (max-width: 800px) {
-      .site-nav {
-        align-items: flex-start;
-        padding: 15px 20px;
-      }
-
-      .nav-links {
-        gap: 14px;
-      }
-
-      .nav-links a:not(.cv-link) {
-        display: none;
-      }
-
-      .shell {
-        padding-inline: 22px;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 38px;
-        padding-block: 64px 52px;
-      }
-
-      .portrait {
-        width: 220px;
-      }
-
-      .publication {
-        grid-template-columns: 210px minmax(0, 1fr);
-        gap: 18px;
-      }
-
-      .timeline-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .terminal-home {
-        max-width: 170px;
-      }
-
-      h1 {
-        font-size: 44px;
-      }
-
-      .intro {
-        font-size: 17px;
-      }
-
-      .fact {
-        grid-template-columns: 38px minmax(0, 1fr);
-        gap: 8px;
-      }
-
-      .publication {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        padding: 20px;
-      }
-
-      .timeline-entry {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .institution-logo {
-        width: min(100%, 200px);
-      }
-
-      .section {
-        padding-block: 46px;
-      }
-
-      .site-footer {
-        flex-direction: column;
-        gap: 8px;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;650;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
+  <title>Fuyan Zhang · Academic Homepage</title>
 </head>
 <body>
-  <nav class="site-nav" aria-label="Primary navigation">
-    <a class="terminal-home" href="#top">
-      <img class="brand-logo" src="assets/fuyan-logo.svg" alt="" aria-hidden="true" width="28" height="28">
-      <span class="terminal-prompt">fuyan@edinburgh:~$</span>
-    </a>
-    <div class="nav-links">
-      <a href="#publications">./publications</a>
-      <a href="#education">./education</a>
-      <a href="#experience">./experience</a>
-      <a class="cv-link" href="uploads/Fuyan_Zhang_CV.pdf" target="_blank" rel="noopener">cv.pdf ↓</a>
-    </div>
-  </nav>
-
-  <main>
-    <header class="shell hero" id="top">
-      <div>
-        <p class="command">$ whoami<span class="cursor" aria-hidden="true"></span></p>
-        <h1>Fuyan Zhang</h1>
-        <p class="intro">Efficient deep learning: pruning, knowledge distillation, input-adaptive computation. <strong>Now heading toward 3D human motion generation</strong> — generative motion models fast enough to run anywhere.</p>
-        <div class="facts">
-          <div class="fact"><span class="fact-label">edu:</span><span>MSc High Performance Computing with Data Science, University of Edinburgh</span></div>
-          <div class="fact"><span class="fact-label">seek:</span><span>PhD position · 2027 entry · efficient generative models / 3D human motion</span></div>
-          <div class="fact"><span class="fact-label">mail:</span><a href="mailto:F.Zhang-42@sms.ed.ac.uk">F.Zhang-42@sms.ed.ac.uk</a></div>
-          <div class="fact">
-            <span class="fact-label">link:</span>
-            <span><a href="https://scholar.google.com/citations?user=R4_yFYoAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a><span class="separator">·</span><a href="https://github.com/eason-z-ovo" target="_blank" rel="noopener">GitHub</a><span class="separator">·</span>Edinburgh, Scotland</span>
-          </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="site-nav shell" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Fuyan Zhang, home"><img src="assets/fuyan-mark.svg" width="28" height="28" alt=""><span>Fuyan Zhang<span class="brand-period">.</span></span></a>
+      <div class="nav-links"><a href="#research">Research</a><a href="#publications">Publications</a><a href="#education">Background</a><a class="cv-link" href="uploads/Fuyan_Zhang_CV.pdf" target="_blank" rel="noopener">CV <span aria-hidden="true">↗</span></a></div>
+    </nav>
+  </header>
+  <main id="main" class="shell">
+    <section class="hero" id="top" aria-labelledby="name">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-line" aria-hidden="true"></span>Human motion · Machine learning</p>
+        <h1 id="name">Fuyan Zhang<span class="name-dot">.</span></h1>
+        <p class="hero-statement">How can familiar motions<br>adapt to <em>new contexts?</em></p>
+        <div class="bio">
+          <p>I’m interested in <strong>compositional 3D human motion</strong>: reusing a specific movement in a new context while preserving what makes it distinctive. My current focus is reference-guided motion composition—how to retain a gesture’s rhythm and form while allowing the rest of the body to adapt.</p>
+          <p>My background spans efficient deep learning, skeleton-based movement analysis, and spatio-temporal modelling. I have worked on model pruning and knowledge distillation, and studied High Performance Computing with Data Science at the University of Edinburgh and Computing Science at the University of Glasgow.</p>
+        </div>
+        <div class="profile-links" aria-label="Academic profiles and contact">
+          <a href="mailto:F.Zhang-42@sms.ed.ac.uk">
+            <svg class="profile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Email <span aria-hidden="true">↗</span>
+          </a>
+          <a href="https://scholar.google.com/citations?user=R4_yFYoAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+            <svg class="profile-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 0 0 9.5l4.84 3.94a8 8 0 0 1 14.32 0L24 9.5 12 0Z"/><circle cx="12" cy="17" r="7"/></svg>
+            Google Scholar <span aria-hidden="true">↗</span>
+          </a>
+          <a href="https://github.com/eason-z-ovo" target="_blank" rel="noopener">
+            <svg class="profile-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
-      <aside class="portrait">
-        <div class="portrait-frame">
-          <img class="portrait-image" src="assets/profile.jpg" alt="Portrait of Fuyan Zhang in graduation attire, making a V sign" width="606" height="720" loading="eager" decoding="async" fetchpriority="high">
-        </div>
-        <div class="portrait-caption">$ display profile.jpg</div>
+      <aside class="profile-aside" aria-label="Portrait and availability">
+        <figure class="portrait"><div class="portrait-mat"><img src="assets/profile.jpg" alt="Fuyan Zhang in graduation attire, making a V sign" width="606" height="720" fetchpriority="high" decoding="async"></div><figcaption><span>Fuyan, in a frame.</span><span aria-hidden="true">[ FZ ]</span></figcaption></figure>
+        <div class="availability"><span class="status-dot" aria-hidden="true"></span><div><strong>Looking ahead</strong><p>Seeking a PhD position<br>2027 entry</p><a href="mailto:F.Zhang-42@sms.ed.ac.uk">Let’s connect <span aria-hidden="true">↗</span></a></div></div>
       </aside>
-    </header>
+    </section>
 
-    <section class="shell section" id="publications" aria-labelledby="publications-title">
-      <h2 class="section-command" id="publications-title">$ ls publications/ <span class="comment" id="publication-summary"># selected · 3 of 7 papers</span></h2>
-      <div class="publication-toolbar" role="group" aria-label="Filter publications">
-        <button class="filter-button" type="button" data-publication-filter="selected" data-filter-label="selected" aria-pressed="true">Selected <span>03</span></button>
-        <button class="filter-button" type="button" data-publication-filter="all" data-filter-label="all" aria-pressed="false">All <span>07</span></button>
-        <button class="filter-button" type="button" data-publication-filter="efficient" data-filter-label="efficient AI" aria-pressed="false">Efficient AI <span>05</span></button>
-        <button class="filter-button" type="button" data-publication-filter="medical" data-filter-label="medical AI" aria-pressed="false">Medical AI <span>04</span></button>
+    <section class="section research-section" id="research" aria-labelledby="research-title">
+      <div class="section-heading"><p class="eyebrow">01 / Current direction</p><h2 id="research-title">Motion worth <em>keeping.</em></h2></div>
+      <div class="research-grid">
+        <div class="research-copy"><p class="lead">A familiar gesture.<br> A different whole-body context.</p><p>Imagine taking a particular wave and bringing it into a walk. I want to preserve its timing and expressive shape, while allowing the shoulders, torso, and gait to adjust.</p><p>I’m exploring which motion features should remain stable, which should adapt, and how to evaluate both reference fidelity and whole-body coordination on combinations unseen during training.</p><p class="research-motivation">The longer-term motivation: help animation teams build new behaviours from existing performances, with less manual reworking.</p><div class="research-tags"><span>Motion reuse</span><span>Compositional generalisation</span><span>Whole-body coordination</span></div></div>
+        <figure class="motion-study" aria-labelledby="motion-caption">
+          <div class="study-heading"><span>Composition study</span><span class="study-number">FIG. 01</span></div>
+          <svg id="motion-canvas" viewBox="0 0 560 285" role="img" aria-labelledby="motion-title motion-desc">
+            <title id="motion-title">A wave, a walk, and their composition</title><desc id="motion-desc">Three schematic figures illustrate transferring a reference wave into a walking context. Green highlights the reference arm. This is an illustration of a research question, not a model result.</desc>
+            <defs><pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.7" fill="#cbd3c9"/></pattern></defs>
+            <rect x="0" y="0" width="560" height="244" fill="url(#dots)"/>
+            <path d="M26 226H534" fill="none" stroke="#bdc8bc" stroke-width="1"/>
+            <g id="pose-wave" class="pose" transform="translate(92 55)"><circle cx="0" cy="18" r="13"/><path d="M0 34L0 104M-23 51L23 51M-14 103L14 103M-23 51L-32 86L-26 112M-14 103L-21 139L-25 168M14 103L23 139L29 168"/><path class="reference-limb" d="M23 51L44 28L42 -1"/></g>
+            <text x="180" y="130" class="math-symbol">+</text>
+            <g id="pose-walk" class="pose" transform="translate(280 55)"><circle cx="0" cy="18" r="13"/><path d="M0 34L0 104M-23 51L23 51M-14 103L14 103M-23 51L-40 78L-27 105M23 51L38 80L48 105M-14 103L-35 134L-48 168M14 103L39 130L22 168"/></g>
+            <text x="365" y="130" class="math-symbol">→</text>
+            <g id="pose-compose" class="pose" transform="translate(462 55)"><circle cx="0" cy="18" r="13"/><path d="M0 34L0 104M-23 51L23 51M-14 103L14 103M-23 51L-40 78L-27 105M-14 103L-35 134L-48 168M14 103L39 130L22 168"/><path class="reference-limb" d="M23 51L44 28L42 -1"/></g>
+            <text x="92" y="262" class="pose-label">Reference wave</text><text x="280" y="262" class="pose-label">Walking context</text><text x="462" y="262" class="pose-label">Compose &amp; adapt</text>
+          </svg>
+          <div class="motion-controls" hidden><button type="button" id="motion-play" aria-label="Play motion illustration" aria-pressed="false"><span id="play-symbol" aria-hidden="true">▶</span><span id="play-label">Play</span></button><label class="sr-only" for="motion-time">Motion illustration timeline</label><input type="range" id="motion-time" min="0" max="100" value="25" step="0.1"><span class="motion-time-label" aria-hidden="true">0—1</span></div>
+          <figcaption id="motion-caption"><span class="legend-line" aria-hidden="true"></span>Reference features, carried into a new context.<small>Concept illustration · not a model output</small></figcaption>
+        </figure>
       </div>
-      <p class="publication-filter-status" id="publication-filter-status" aria-live="polite">Showing 3 selected publications.</p>
+    </section>
+
+    <section class="section" id="publications" aria-labelledby="publications-title">
+      <div class="section-heading publications-heading"><div><p class="eyebrow">02 / Published work</p><h2 id="publications-title">Selected publications</h2></div><a class="text-link" href="https://scholar.google.com/citations?user=R4_yFYoAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar <span aria-hidden="true">↗</span></a></div>
+      <p class="section-intro">Work on efficient learning, spatio-temporal prediction, and medical imaging.</p>
+      <div class="publication-tools" hidden><div class="publication-toolbar" role="group" aria-label="Filter publications"><button class="filter-button" type="button" data-publication-filter="selected" data-filter-label="selected" aria-pressed="true">Selected <span>03</span></button><button class="filter-button" type="button" data-publication-filter="all" data-filter-label="all" aria-pressed="false">All <span>07</span></button><button class="filter-button" type="button" data-publication-filter="efficient" data-filter-label="efficient AI" aria-pressed="false">Efficient AI <span>05</span></button><button class="filter-button" type="button" data-publication-filter="medical" data-filter-label="medical AI" aria-pressed="false">Medical AI <span>04</span></button></div><p id="publication-filter-status" aria-live="polite">Showing 3 selected publications.</p></div>
+      <noscript><p>All seven publications and their citations are shown below.</p></noscript>
       <div class="publication-list">
         <article class="publication is-selected" data-categories="selected efficient">
           <figure class="publication-visual">
@@ -697,14 +96,14 @@
             <figcaption>Fig. 1 · Joint data–model pruning framework</figcaption>
           </figure>
           <div class="publication-body">
-            <div class="publication-meta"><span class="venue spotlight">ICME 2026 · SPOTLIGHT</span><span class="first-author">★ first author</span><span class="selected-label">◆ selected</span></div>
+            <div class="publication-meta"><span class="venue spotlight">ICME 2026 · Spotlight</span><span class="first-author">First author</span><span class="selected-label">Selected</span></div>
             <h3>DYNA-PRUNER: Input-Adaptive Data-Model Co-Pruning for Efficient and Scalable Spatio-Temporal Media Prediction</h3>
             <div class="authors"><strong>F. Zhang</strong>, Y. Li, Q. Xu, Y. Tian, E.S.L. Ho</div>
             <div class="publication-actions">
               <a class="paper-link" href="https://arxiv.org/abs/2606.15346" target="_blank" rel="noopener">Preprint <span aria-hidden="true">↗</span></a>
-              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-dyna">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-dyna" hidden>BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
             </div>
-            <div class="bibtex-panel" id="bibtex-dyna" hidden>
+            <div class="bibtex-panel" id="bibtex-dyna">
               <pre><code>@misc{zhang2026dynapruner,
   title         = {DYNA-PRUNER: Input-Adaptive Data-Model Co-Pruning for Efficient and Scalable Spatio-Temporal Media Prediction},
   author        = {Zhang, Fuyan and Li, Yuqi and Xu, Qing and Tian, Yingli and Ho, Edmond S. L.},
@@ -728,14 +127,14 @@
             <figcaption>Fig. 1 · Adversarial visual prompt tuning</figcaption>
           </figure>
           <div class="publication-body">
-            <div class="publication-meta"><span class="venue">INFORMATION SCIENCES · JCR-Q1</span><span class="selected-label">◆ selected</span></div>
+            <div class="publication-meta"><span class="venue">Information Sciences</span><span class="selected-label">Selected</span></div>
             <h3>Achieving Fair Medical Image Segmentation in Foundation Models with Adversarial Visual Prompt Tuning</h3>
             <div class="authors">Y. Li, Y. Li, K. Zhang, <strong>F. Zhang</strong>, C. Yang, Z. Guo, W. Ding, T. Huang</div>
             <div class="publication-actions">
-              <a class="paper-link" href="https://doi.org/10.1016/j.ins.2025.122501" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-advvpt">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+              <a class="paper-link" href="https://doi.org/10.1016/j.ins.2025.122501" target="_blank" rel="noopener">Paper <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-advvpt" hidden>BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
             </div>
-            <div class="bibtex-panel" id="bibtex-advvpt" hidden>
+            <div class="bibtex-panel" id="bibtex-advvpt">
               <pre><code>@article{li2025advvpt,
   title     = {Achieving Fair Medical Image Segmentation in Foundation Models with Adversarial Visual Prompt Tuning},
   author    = {Li, Yuqi and Li, Yanli and Zhang, Kai and Zhang, Fuyan and Yang, Chuanguang and Guo, Zhongliang and Ding, Weiping and Huang, Tingwen},
@@ -760,14 +159,14 @@
             <figcaption>Fig. 1 · RL-driven K-space sampling pipeline</figcaption>
           </figure>
           <div class="publication-body">
-            <div class="publication-meta"><span class="venue">IEEE TETCI · JCR-Q1</span><span class="selected-label">◆ selected</span></div>
+            <div class="publication-meta"><span class="venue">IEEE TETCI</span><span class="selected-label">Selected</span></div>
             <h3>Efficient Medical Image Segmentation via Reinforcement Learning-Driven K-Space Sampling</h3>
             <div class="authors">Y. Li, H. Zeng, <strong>F. Zhang</strong>, C. Yang, Y. Li, W. Ding</div>
             <div class="publication-actions">
-              <a class="paper-link" href="https://doi.org/10.1109/TETCI.2025.3621221" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-kspace">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+              <a class="paper-link" href="https://doi.org/10.1109/TETCI.2025.3621221" target="_blank" rel="noopener">Paper <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-kspace" hidden>BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
             </div>
-            <div class="bibtex-panel" id="bibtex-kspace" hidden>
+            <div class="bibtex-panel" id="bibtex-kspace">
               <pre><code>@article{li2026kspace,
   title     = {Efficient Medical Image Segmentation via Reinforcement Learning-Driven K-Space Sampling},
   author    = {Li, Yuqi and Zeng, Hansheng and Zhang, Fuyan and Yang, Chuanguang and Li, Yanli and Ding, Weiping},
@@ -785,7 +184,7 @@
           </div>
         </article>
 
-        <article class="publication" data-categories="medical" hidden>
+        <article class="publication" data-categories="medical">
           <figure class="publication-visual">
             <a class="publication-figure-link" href="https://doi.org/10.1016/j.cviu.2026.104822" target="_blank" rel="noopener" aria-label="Open the MRAM and DMIR paper page">
               <img class="publication-figure" src="assets/publications/mram.webp" alt="Comparison motivating multi-band amplitude mixup and domain-specific mask image reconstruction" width="1200" height="504" loading="lazy" decoding="async">
@@ -793,14 +192,14 @@
             <figcaption>Fig. 1 · Motivation for MRAM and DMIR</figcaption>
           </figure>
           <div class="publication-body">
-            <div class="publication-meta"><span class="venue">CVIU · JCR-Q1</span></div>
+            <div class="publication-meta"><span class="venue">CVIU</span></div>
             <h3>Towards Robust Medical Image Segmentation: Spectro-Spatial Domain Generalization with MRAM and DMIR</h3>
             <div class="authors">Y. Li, J. Dong, H. Zeng, <strong>F. Zhang</strong>, Z. Dong, C. Yang, Y. Tian</div>
             <div class="publication-actions">
-              <a class="paper-link" href="https://doi.org/10.1016/j.cviu.2026.104822" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-mram">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+              <a class="paper-link" href="https://doi.org/10.1016/j.cviu.2026.104822" target="_blank" rel="noopener">Paper <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-mram" hidden>BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
             </div>
-            <div class="bibtex-panel" id="bibtex-mram" hidden>
+            <div class="bibtex-panel" id="bibtex-mram">
               <pre><code>@article{li2026mram,
   title     = {Towards Robust Medical Image Segmentation: Spectro-Spatial Domain Generalization with MRAM and DMIR},
   author    = {Li, Yuqi and Dong, Junhao and Zeng, Hansheng and Zhang, Fuyan and Dong, Zeyu and Yang, Chuanguang and Tian, Yingli},
@@ -817,7 +216,7 @@
           </div>
         </article>
 
-        <article class="publication" data-categories="efficient" hidden>
+        <article class="publication" data-categories="efficient">
           <figure class="publication-visual">
             <a class="publication-figure-link" href="https://link.springer.com/article/10.1007/s12559-024-10350-9/figures/2" target="_blank" rel="noopener" aria-label="Open the full PDD method figure">
               <img class="publication-figure" src="assets/publications/pdd.webp" alt="PDD teacher-student knowledge distillation pipeline and dynamic mask mechanism" width="900" height="993" loading="lazy" decoding="async">
@@ -825,14 +224,14 @@
             <figcaption>Fig. 2 · PDD pipeline and dynamic mask</figcaption>
           </figure>
           <div class="publication-body">
-            <div class="publication-meta"><span class="venue">COGNITIVE COMPUTATION · JCR-Q1</span></div>
+            <div class="publication-meta"><span class="venue">COGNITIVE COMPUTATION</span></div>
             <h3>PDD: Pruning Neural Networks During Knowledge Distillation</h3>
             <div class="authors">D. Xi, W. Yang, <strong>F. Zhang</strong>, Y. Zhou, Z. Yu, Z. Qiu, B. Zhao, Z. Dong, L. Huang, C. Yang</div>
             <div class="publication-actions">
-              <a class="paper-link" href="https://doi.org/10.1007/s12559-024-10350-9" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-pdd">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+              <a class="paper-link" href="https://doi.org/10.1007/s12559-024-10350-9" target="_blank" rel="noopener">Paper <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-pdd" hidden>BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
             </div>
-            <div class="bibtex-panel" id="bibtex-pdd" hidden>
+            <div class="bibtex-panel" id="bibtex-pdd">
               <pre><code>@article{xi2024pdd,
   title     = {PDD: Pruning Neural Networks During Knowledge Distillation},
   author    = {Xi, Dan and Yang, Wenjie and Zhang, Fuyan and Zhou, Yihang and Yu, Zhuojun and Qiu, Zhen and Zhao, Boyuan and Dong, Zeyu and Huang, Libo and Yang, Chuanguang},
@@ -850,7 +249,7 @@
           </div>
         </article>
 
-        <article class="publication" data-categories="efficient medical" hidden>
+        <article class="publication" data-categories="efficient medical">
           <figure class="publication-visual">
             <a class="publication-figure-link" href="https://link.springer.com/chapter/10.1007/978-981-96-6585-3_20/figures/1" target="_blank" rel="noopener" aria-label="Open the full CPG method figure">
               <img class="publication-figure" src="assets/publications/cpg.webp" alt="CPG method showing DFS-guided channel grouping and L2-norm pruning" width="1100" height="903" loading="lazy" decoding="async">
@@ -858,14 +257,14 @@
             <figcaption>Fig. 1 · DFS-guided grouping and pruning</figcaption>
           </figure>
           <div class="publication-body">
-            <div class="publication-meta"><span class="venue">ICONIP 2024 · CCF-C / CORE-A</span></div>
+            <div class="publication-meta"><span class="venue">ICONIP 2024</span></div>
             <h3>CPG: Channel Pruning with DFS Guided Grouping for Efficient Medical Image Segmentation</h3>
             <div class="authors">X. Yan, <strong>F. Zhang</strong>, Y. Li, Z. Qiu, B. Zhao, J. Li, H. Zeng, Y. Chen, C. Yang</div>
             <div class="publication-actions">
-              <a class="paper-link" href="https://doi.org/10.1007/978-981-96-6585-3_20" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-cpg">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+              <a class="paper-link" href="https://doi.org/10.1007/978-981-96-6585-3_20" target="_blank" rel="noopener">Paper <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-cpg" hidden>BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
             </div>
-            <div class="bibtex-panel" id="bibtex-cpg" hidden>
+            <div class="bibtex-panel" id="bibtex-cpg">
               <pre><code>@incollection{yan2025cpg,
   title     = {CPG: Channel Pruning with DFS Guided Grouping for Efficient Medical Image Segmentation},
   author    = {Yan, Xilin and Zhang, Fuyan and Li, Yuqi and Qiu, Zhen and Zhao, Boyuan and Li, Jiarui and Zeng, Hansheng and Chen, Yihao and Yang, Chuanguang},
@@ -881,7 +280,7 @@
           </div>
         </article>
 
-        <article class="publication" data-categories="efficient" hidden>
+        <article class="publication" data-categories="efficient">
           <figure class="publication-visual">
             <a class="publication-figure-link" href="https://link.springer.com/chapter/10.1007/978-981-97-5492-2_29/figures/1" target="_blank" rel="noopener" aria-label="Open the full meter-reading method figure">
               <img class="publication-figure" src="assets/publications/meter.webp" alt="Knowledge-distillation network with teacher and MobileNetV3 student for automatic meter reading" width="1200" height="623" loading="lazy" decoding="async">
@@ -889,14 +288,14 @@
             <figcaption>Fig. 1 · KKN teacher–student architecture</figcaption>
           </figure>
           <div class="publication-body">
-            <div class="publication-meta"><span class="venue">KSEM 2024 · CCF-C / CORE-B</span></div>
+            <div class="publication-meta"><span class="venue">KSEM 2024</span></div>
             <h3>Automatic Meter Pointer Reading Based on Knowledge Distillation</h3>
             <div class="authors">S. Rong, W. Yang, <strong>F. Zhang</strong>, Y. Xiang, H. Wang, Y. Jiang</div>
             <div class="publication-actions">
-              <a class="paper-link" href="https://doi.org/10.1007/978-981-97-5492-2_29" target="_blank" rel="noopener">PDF <span aria-hidden="true">↗</span></a>
-              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-meter">BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
+              <a class="paper-link" href="https://doi.org/10.1007/978-981-97-5492-2_29" target="_blank" rel="noopener">Paper <span aria-hidden="true">↗</span></a>
+              <button class="bibtex-button" type="button" data-bib-toggle aria-expanded="false" aria-controls="bibtex-meter" hidden>BibTeX <span class="bibtex-indicator" aria-hidden="true">+</span></button>
             </div>
-            <div class="bibtex-panel" id="bibtex-meter" hidden>
+            <div class="bibtex-panel" id="bibtex-meter">
               <pre><code>@incollection{rong2024meter,
   title     = {Automatic Meter Pointer Reading Based on Knowledge Distillation},
   author    = {Rong, Sun and Yang, Wenjie and Zhang, Fuyan and Xiang, Yanzhuo and Wang, Hengxi and Jiang, Yuncheng},
@@ -913,12 +312,11 @@
         </article>
       </div>
     </section>
-
-    <section class="shell section" id="education" aria-labelledby="education-title">
-      <h2 class="section-command" id="education-title">$ cat education.log</h2>
+    <section class="section timeline-section" id="education" aria-labelledby="education-title">
+      <div class="section-heading"><p class="eyebrow">03 / Background</p><h2 id="education-title">Education</h2></div>
       <div class="timeline">
         <article class="timeline-row">
-          <div class="date">2025.09 — 2026.09</div>
+          <div class="date">2025 — 2026</div>
           <div class="timeline-entry">
             <div class="institution-logo" aria-hidden="true">
               <img src="assets/institutions/edinburgh.png" alt="" width="700" height="167" loading="lazy" decoding="async">
@@ -930,7 +328,7 @@
           </div>
         </article>
         <article class="timeline-row">
-          <div class="date">2022.09 — 2025.06</div>
+          <div class="date">2022 — 2025</div>
           <div class="timeline-entry">
             <div class="institution-logo" aria-hidden="true">
               <img src="assets/institutions/glasgow.png" alt="" width="300" height="137" loading="lazy" decoding="async">
@@ -944,11 +342,11 @@
       </div>
     </section>
 
-    <section class="shell section" id="experience" aria-labelledby="experience-title">
-      <h2 class="section-command" id="experience-title">$ cat experience.log</h2>
+    <section class="section timeline-section" id="experience" aria-labelledby="experience-title">
+      <div class="section-heading"><p class="eyebrow">04 / In practice</p><h2 id="experience-title">Research experience</h2></div>
       <div class="timeline">
         <article class="timeline-row">
-          <div class="date">2025.07 — 2025.09</div>
+          <div class="date">Jul — Sep 2025</div>
           <div class="timeline-entry">
             <div class="institution-logo" aria-hidden="true">
               <img src="assets/institutions/glasgow.png" alt="" width="300" height="137" loading="lazy" decoding="async">
@@ -960,78 +358,30 @@
           </div>
         </article>
         <article class="timeline-row">
-          <div class="date">2024.06 — 2024.08</div>
+          <div class="date">Jun — Aug 2024</div>
           <div class="timeline-entry">
             <div class="institution-logo" aria-hidden="true">
               <img src="assets/institutions/ict-cas.png" alt="" width="343" height="84" loading="lazy" decoding="async">
             </div>
             <div>
               <div class="timeline-title">Research Assistant · Institute of Computing Technology, CAS</div>
-              <div class="timeline-detail">Beijing · Supervisor: Dr. Chuanguang Yang — model pruning and knowledge distillation across medical segmentation and detection (→ 4 co-authored papers)</div>
+              <div class="timeline-detail">Beijing · Supervisor: Dr. Chuanguang Yang — model pruning and knowledge distillation across medical segmentation and detection</div>
             </div>
           </div>
         </article>
       </div>
     </section>
+
+    <section class="section personal-section" aria-labelledby="personal-title">
+      <div class="section-heading"><p class="eyebrow">05 / Beyond research</p><h2 id="personal-title">Off the clock.</h2><p class="personal-intro">Two games I enjoy, away from papers and experiments.</p></div>
+      <div class="game-grid">
+        <article class="game-card"><span class="game-index">01 / Games</span><svg viewBox="0 0 100 100" fill="none" stroke="#7d8e66" stroke-width=".8" aria-hidden="true"><circle cx="50" cy="48" r="30"/><circle cx="50" cy="48" r="23"/><path d="M50 6V90M17 48H83M28 78L50 16L72 78M38 28L62 68M62 28L38 68"/><circle cx="50" cy="48" r="4"/></svg><h3>ELDEN RING</h3><p>The Lands Between</p></article>
+        <article class="game-card tactics"><span class="game-index">02 / Games</span><svg viewBox="0 0 100 100" fill="none" stroke="#a4805b" stroke-width=".9" aria-hidden="true"><path d="M30 15L45 24V42L30 51L15 42V24ZM61 15L76 24V42L61 51L46 42V24ZM46 43L61 52V70L46 79L31 70V52ZM77 43L92 52V70L77 79L62 70V52Z"/><path d="M30 24L37 28V37L30 42L23 37V28Z" fill="#a4805b" opacity=".45"/><circle cx="46" cy="61" r="5"/></svg><h3>Teamfight Tactics</h3><p>One board, many possibilities</p></article>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title"><div><p class="eyebrow">A conversation starts here</p><h2 id="contact-title">Let’s talk <em>motion.</em></h2><p>I’m seeking PhD opportunities for 2027 in human motion generation<br class="desktop-break"> and would welcome conversations about research and collaboration.</p></div><a class="contact-link" href="mailto:F.Zhang-42@sms.ed.ac.uk">F.Zhang-42@sms.ed.ac.uk <span aria-hidden="true">↗</span></a></section>
   </main>
-
-  <footer class="shell site-footer">
-    <span class="footer-brand"><img class="footer-logo" src="assets/fuyan-logo.svg" alt="" aria-hidden="true" width="23" height="23"><span>© 2026 Fuyan Zhang · built with a terminal aesthetic</span></span>
-    <span>$ exit</span>
-  </footer>
-
-  <script>
-    const publicationCards = Array.from(document.querySelectorAll(".publication"));
-    const filterButtons = Array.from(document.querySelectorAll("[data-publication-filter]"));
-    const publicationSummary = document.querySelector("#publication-summary");
-    const filterStatus = document.querySelector("#publication-filter-status");
-
-    function closeBibTeX(card) {
-      const button = card.querySelector("[data-bib-toggle]");
-      const panel = card.querySelector(".bibtex-panel");
-      if (!button || !panel) return;
-      button.setAttribute("aria-expanded", "false");
-      button.querySelector(".bibtex-indicator").textContent = "+";
-      panel.hidden = true;
-    }
-
-    function filterPublications(activeButton) {
-      const filter = activeButton.dataset.publicationFilter;
-      const label = activeButton.dataset.filterLabel;
-      let visibleCount = 0;
-
-      filterButtons.forEach((button) => {
-        button.setAttribute("aria-pressed", String(button === activeButton));
-      });
-
-      publicationCards.forEach((card) => {
-        const categories = card.dataset.categories.split(" ");
-        const isVisible = filter === "all" || categories.includes(filter);
-        card.hidden = !isVisible;
-        if (isVisible) {
-          visibleCount += 1;
-        } else {
-          closeBibTeX(card);
-        }
-      });
-
-      publicationSummary.textContent = `# ${label} · ${visibleCount} of ${publicationCards.length} papers`;
-      filterStatus.textContent = `Showing ${visibleCount} ${label} publication${visibleCount === 1 ? "" : "s"}.`;
-    }
-
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", () => filterPublications(button));
-    });
-
-    document.querySelectorAll("[data-bib-toggle]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const panel = document.getElementById(button.getAttribute("aria-controls"));
-        const isExpanded = button.getAttribute("aria-expanded") === "true";
-        button.setAttribute("aria-expanded", String(!isExpanded));
-        button.querySelector(".bibtex-indicator").textContent = isExpanded ? "+" : "−";
-        panel.hidden = isExpanded;
-      });
-    });
-  </script>
+  <footer class="site-footer shell"><a class="footer-brand" href="#top"><img src="assets/fuyan-mark.svg" width="22" height="22" alt="">Fuyan Zhang</a><span>Motion, composition &amp; efficient learning.</span><a href="#top">Back to top ↑</a></footer>
 </body>
 </html>
